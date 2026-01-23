@@ -3,7 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_transform">
+    app:startDestination="@+id/nav_subjects">
+
+    <fragment
+        android:id="@+id/nav_subjects"
+        android:name="com.example.matbase.ui.SubjectsFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_subjects">
+        <action
+            android:id="@+id/action_nav_subjects_to_nav_materials"
+            app:destination="@id/nav_materials" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_materials"
+        android:name="com.example.matbase.ui.MaterialsFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_materials" />
 
     <fragment
         android:id="@+id/nav_transform"
