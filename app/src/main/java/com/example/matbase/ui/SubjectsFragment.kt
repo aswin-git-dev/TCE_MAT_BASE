@@ -25,7 +25,7 @@ class SubjectsFragment : Fragment() {
         _binding = FragmentSubjectsBinding.inflate(inflater, container, false)
         
         val subjects = listOf("SUB1", "SUB2", "SUB3", "SUB4", "SUB5", "SUB6", "SUB7", "SUB8")
-        binding.recyclerviewSubjects.adapter = SubjectsAdapter(subjects) { subject ->
+        binding.subjectsRecyclerView.adapter = SubjectsAdapter(subjects) { subject ->
             findNavController().navigate(R.id.action_nav_subjects_to_nav_materials)
         }
         

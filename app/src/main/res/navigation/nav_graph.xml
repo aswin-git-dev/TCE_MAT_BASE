@@ -24,14 +24,19 @@
             android:name="department"
             app:argType="string" />
         <action
-            android:id="@+id/action_semesterFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            android:id="@+id/action_semesterFragment_to_subjectsFragment"
+            app:destination="@id/subjectsFragment" />
     </fragment>
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.matbase.MainActivity"
-        android:label="MainActivity"
-        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/subjectsFragment"
+        android:name="com.example.matbase.SubjectsFragment"
+        android:label="SubjectsFragment"
+        tools:layout="@layout/fragment_subjects">
+        <argument
+            android:name="semester"
+            app:argType="string" />
+    </fragment>
+
 
 </navigation>

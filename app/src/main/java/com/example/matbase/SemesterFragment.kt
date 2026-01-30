@@ -30,8 +30,9 @@ class SemesterFragment : Fragment() {
         binding.departmentTitle.text = args.department
 
         val semesters = listOf("1st SEM", "2nd SEM", "3rd SEM", "4th SEM", "5th SEM", "6th SEM", "7th SEM", "8th SEM")
-        val adapter = SemesterAdapter(semesters) {
-            findNavController().navigate(R.id.action_semesterFragment_to_mainActivity)
+        val adapter = SemesterAdapter(semesters) { semester ->
+            val action = SemesterFragmentDirections.actionSemesterFragmentToSubjectsFragment(semester)
+            findNavController().navigate(action)
         }
         binding.semesterRecyclerView.adapter = adapter
     }
