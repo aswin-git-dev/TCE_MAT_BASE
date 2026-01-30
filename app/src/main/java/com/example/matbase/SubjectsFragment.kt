@@ -1,6 +1,7 @@
 package com.example.matbase
 
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,14 @@ class SubjectsFragment : Fragment() {
         val adapter = SubjectsAdapter(subjects) {
             // Handle subject click
         }
-        binding.subjectsRecyclerView.adapter = adapter
+        binding.subjectsRecyclerView.adapter = SubjectsAdapter(subjects) { subject ->
+            val action =
+                SubjectsFragmentDirections
+                    .actionNavSubjectsToNavSubjectOptions(subject)
+
+            findNavController().navigate(action)
+        }
+
     }
 
     override fun onDestroyView() {

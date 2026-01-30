@@ -37,6 +37,20 @@
             android:name="semester"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_subject_options"
+        android:name="com.example.matbase.ui.SubjectOptionsFragment"
+        android:label="Subject Options"
+        tools:layout="@layout/fragment_subject_options">
+
+        <argument
+            android:name="subjectName"
+            app:argType="string" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_nav_subjects_to_nav_subject_options"
+        app:destination="@id/nav_subject_options" />
 
 
 </navigation>
