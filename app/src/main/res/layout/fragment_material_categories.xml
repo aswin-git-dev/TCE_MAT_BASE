@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_revert"
+        android:contentDescription="Back" />
+
+    <TextView
+        android:id="@+id/btn_study_materials"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/btn_back"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:background="@color/card_background"
+        android:gravity="center"
+        android:text="Study Materials"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/btn_pyqs"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignTop="@id/btn_study_materials"
+        android:layout_toEndOf="@id/btn_study_materials"
+        android:layout_marginStart="32dp"
+        android:background="@color/card_background"
+        android:gravity="center"
+        android:text="PYQs"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/btn_lab_manuals"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/btn_study_materials"
+        android:layout_alignStart="@id/btn_study_materials"
+        android:layout_marginTop="32dp"
+        android:background="@color/card_background"
+        android:gravity="center"
+        android:text="Lab Manuals"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/btn_syllabus"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignTop="@id/btn_lab_manuals"
+        android:layout_toEndOf="@id/btn_lab_manuals"
+        android:layout_marginStart="32dp"
+        android:background="@color/card_background"
+        android:gravity="center"
+        android:text="Syllabus"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/btn_grade_calculator"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/btn_lab_manuals"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:background="@color/card_background"
+        android:gravity="center"
+        android:text="Grade calculator"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+</RelativeLayout>

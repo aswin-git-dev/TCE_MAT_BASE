@@ -3,6 +3,9 @@ package com.example.matbase
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -26,9 +29,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         binding.appBarMain.fab?.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Notification sent", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
+            Toast.makeText(this, "Action FAB clicked", Toast.LENGTH_SHORT).show()
         }
 
         val navHostFragment =
@@ -55,16 +59,30 @@ class MainActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController, appBarConfiguration)
             it.setupWithNavController(navController)
         }
+
+        // Handle back button with Alert Dialog
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitDialog()
+            }
+        })
+    }
+
+    private fun showExitDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit Application")
+            .setMessage("Are you sure you want to exit?")
+            .setPositiveButton("Yes") { _, _ ->
+                finish()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val result = super.onCreateOptionsMenu(menu)
-        // Using findViewById because NavigationView exists in different layout files
-        // between w600dp and w1240dp
         val navView: NavigationView? = findViewById(R.id.nav_view)
         if (navView == null) {
-            // The navigation drawer already has the items including the items in the overflow menu
-            // We only inflate the overflow menu if the navigation drawer isn't visible
             menuInflater.inflate(R.menu.overflow, menu)
         }
         return result

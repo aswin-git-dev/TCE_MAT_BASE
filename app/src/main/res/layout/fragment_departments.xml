@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/table_departments"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:stretchColumns="0,1">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/dept_it"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="IT"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dept_cse"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="CSE"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/dept_csbs"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="CSBS"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dept_mech"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="MECH"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/dept_mect"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="MECT"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dept_eee"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="EEE"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dept_ece"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="ECE"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dept_civil"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:background="@color/card_background"
+            android:gravity="center"
+            android:text="CIVIL"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </TableRow>
+
+</TableLayout>

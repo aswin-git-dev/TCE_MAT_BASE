@@ -3,23 +3,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_subjects">
+    app:startDestination="@+id/nav_login">
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.matbase.ui.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_nav_login_to_nav_departments"
+            app:destination="@id/nav_departments" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_departments"
+        android:name="com.example.matbase.ui.DepartmentsFragment"
+        android:label="Departments"
+        tools:layout="@layout/fragment_departments">
+        <action
+            android:id="@+id/action_nav_departments_to_nav_semesters"
+            app:destination="@id/nav_semesters" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_semesters"
+        android:name="com.example.matbase.ui.SemestersFragment"
+        android:label="Semesters"
+        tools:layout="@layout/fragment_semesters">
+        <action
+            android:id="@+id/action_nav_semesters_to_nav_subjects"
+            app:destination="@id/nav_subjects" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_subjects"
         android:name="com.example.matbase.ui.SubjectsFragment"
-        android:label="@string/app_name"
+        android:label="Subjects"
         tools:layout="@layout/fragment_subjects">
         <action
-            android:id="@+id/action_nav_subjects_to_nav_materials"
+            android:id="@+id/action_nav_subjects_to_nav_material_categories"
+            app:destination="@id/nav_material_categories" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_material_categories"
+        android:name="com.example.matbase.ui.MaterialCategoriesFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_material_categories">
+        <action
+            android:id="@+id/action_nav_material_categories_to_nav_materials"
             app:destination="@id/nav_materials" />
+        <action
+            android:id="@+id/action_nav_material_categories_to_nav_grade_calculator"
+            app:destination="@id/nav_grade_calculator" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_materials"
         android:name="com.example.matbase.ui.MaterialsFragment"
-        android:label="@string/app_name"
+        android:label="Materials"
         tools:layout="@layout/fragment_materials" />
+
+    <fragment
+        android:id="@+id/nav_grade_calculator"
+        android:name="com.example.matbase.ui.GradeCalculatorFragment"
+        android:label="Grade Calculator"
+        tools:layout="@layout/fragment_grade_calculator" />
 
     <fragment
         android:id="@+id/nav_transform"

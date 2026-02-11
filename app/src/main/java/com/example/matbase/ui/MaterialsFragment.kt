@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.example.matbase.R
 import com.example.matbase.databinding.FragmentMaterialsBinding
+import androidx.recyclerview.widget.RecyclerView
 
 class MaterialsFragment : Fragment() {
 
@@ -23,11 +22,7 @@ class MaterialsFragment : Fragment() {
     ): View {
         _binding = FragmentMaterialsBinding.inflate(inflater, container, false)
         
-        binding.buttonBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        val materials = listOf("Study Materials", "PYQs", "Lab Manuals", "Syllabus", "Grade calculator")
+        val materials = listOf("Material 1", "Material 2", "Material 3")
         binding.recyclerviewMaterials.adapter = MaterialsAdapter(materials)
         
         return binding.root
@@ -42,12 +37,12 @@ class MaterialsFragment : Fragment() {
         RecyclerView.Adapter<MaterialsAdapter.ViewHolder>() {
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val textView: TextView = view.findViewById(R.id.text_view)
+            val textView: TextView = view.findViewById(R.id.tv_material_name)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_grid_card, parent, false)
+                .inflate(R.layout.item_material, parent, false)
             return ViewHolder(view)
         }
 
