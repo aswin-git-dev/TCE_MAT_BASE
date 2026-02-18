@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         binding.navView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.nav_subjects, R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings
+                    R.id.nav_subjects, R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings, R.id.nav_about_us
                 ),
                 binding.drawerLayout
             )
@@ -80,22 +80,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val result = super.onCreateOptionsMenu(menu)
-        val navView: NavigationView? = findViewById(R.id.nav_view)
-        if (navView == null) {
-            menuInflater.inflate(R.menu.overflow, menu)
-        }
-        return result
+        menuInflater.inflate(R.menu.overflow, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        return when (item.itemId) {
             R.id.nav_settings -> {
-                val navController = findNavController(R.id.nav_host_fragment_content_main)
                 navController.navigate(R.id.nav_settings)
+                true
             }
+            R.id.nav_about_us -> {
+                navController.navigate(R.id.nav_about_us)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

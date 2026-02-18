@@ -1,9 +1,11 @@
 package com.example.matbase.ui.settings
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -12,7 +14,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.matbase.R
@@ -23,6 +27,16 @@ class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private val CHANNEL_ID = "settings_notification"
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Toast.makeText(requireContext(), "Notification permission granted", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Notification permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,12 +54,30 @@ class SettingsFragment : Fragment() {
         }
 
         binding.btnSaveSettings.setOnClickListener {
-            saveAndNotify()
+            checkPermissionAndSave()
         }
 
         createNotificationChannel()
 
         return root
+    }
+
+    private fun checkPermissionAndSave() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    saveAndNotify()
+                }
+                else -> {
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        } else {
+            saveAndNotify()
+        }
     }
 
     private fun saveAndNotify() {
