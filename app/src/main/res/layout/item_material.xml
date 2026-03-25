@@ -3,33 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:cardCornerRadius="8dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/tv_material_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Material 1"
+            android:layout_marginEnd="8dp"
+            android:text="Material Name"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/btn_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_top_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_material_subject"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Subject"
+            android:textColor="@color/header_blue"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_material_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_top_toBottomOf="@id/tv_material_name" />
 
         <Button
             android:id="@+id/btn_view"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/header_blue"
             android:text="View"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_top_toTopOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
