@@ -24,7 +24,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btn_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_top_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_material_subject"
@@ -36,7 +36,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_material_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_top_toBottomOf="@id/tv_material_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_material_name" />
 
         <Button
             android:id="@+id/btn_view"
@@ -46,7 +46,7 @@
             android:text="View"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_top_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

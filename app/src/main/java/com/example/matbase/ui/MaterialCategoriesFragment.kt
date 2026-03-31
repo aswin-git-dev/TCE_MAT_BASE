@@ -35,7 +35,8 @@ class MaterialCategoriesFragment : Fragment() {
         binding.btnSyllabus.setOnClickListener(toMaterials)
 
         binding.btnGradeCalculator.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_material_categories_to_nav_grade_calculator)
+            // Grade calculator is now part of the Calculators tab
+            findNavController().navigate(R.id.nav_calculators)
         }
     }
 

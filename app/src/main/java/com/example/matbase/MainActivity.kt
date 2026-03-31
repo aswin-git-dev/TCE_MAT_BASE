@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -26,44 +25,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
         setSupportActionBar(binding.appBarMain.toolbar)
-
-        binding.appBarMain.fab?.setOnClickListener { view ->
-            Snackbar.make(view, "Notification sent", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
-            Toast.makeText(this, "Action FAB clicked", Toast.LENGTH_SHORT).show()
-        }
 
         val navHostFragment =
             (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?)!!
         val navController = navHostFragment.navController
 
-        binding.navView?.let {
-            appBarConfiguration = AppBarConfiguration(
-                setOf(
-                    R.id.nav_subjects, R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings, R.id.nav_about_us
-                ),
-                binding.drawerLayout
-            )
-            setupActionBarWithNavController(navController, appBarConfiguration)
-            it.setupWithNavController(navController)
-        }
+        // Navigation for Drawer and Bottom Navigation View
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_materials, R.id.nav_calculators, R.id.nav_profile, R.id.nav_about_us
+            ),
+            binding.drawerLayout
+        )
+        
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        
+        // Setup Drawer
+        binding.navView?.setupWithNavController(navController)
+        
+        // Setup Bottom Navigation
+        binding.appBarMain.contentMain.bottomNavView?.setupWithNavController(navController)
 
-        binding.appBarMain.contentMain.bottomNavView?.let {
-            appBarConfiguration = AppBarConfiguration(
-                setOf(
-                    R.id.nav_subjects, R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow
-                )
-            )
-            setupActionBarWithNavController(navController, appBarConfiguration)
-            it.setupWithNavController(navController)
-        }
-
-        // Handle back button with Alert Dialog
+        // Handle back button
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                showExitDialog()
+                val currentDest = navController.currentDestination?.id
+                if (currentDest == R.id.nav_materials || currentDest == R.id.nav_login) {
+                    showExitDialog()
+                } else {
+                    if (!navController.navigateUp()) {
+                        showExitDialog()
+                    }
+                }
             }
         })
     }
@@ -87,12 +82,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return when (item.itemId) {
-            R.id.nav_settings -> {
-                navController.navigate(R.id.nav_settings)
-                true
-            }
             R.id.nav_about_us -> {
                 navController.navigate(R.id.nav_about_us)
+                true
+            }
+            R.id.nav_settings -> {
+                navController.navigate(R.id.nav_settings)
                 true
             }
             else -> super.onOptionsItemSelected(item)
