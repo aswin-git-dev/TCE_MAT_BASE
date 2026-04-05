@@ -14,6 +14,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.example.matbase.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -52,7 +53,9 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val currentDest = navController.currentDestination?.id
-                if (currentDest == R.id.nav_materials || currentDest == R.id.nav_login) {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                } else if (currentDest == R.id.nav_materials || currentDest == R.id.nav_login || currentDest == R.id.nav_departments) {
                     showExitDialog()
                 } else {
                     if (!navController.navigateUp()) {

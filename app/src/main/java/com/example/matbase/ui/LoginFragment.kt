@@ -44,19 +44,21 @@ class LoginFragment : Fragment() {
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account)
-            } catch (e: ApiException) {
-                // Show more detailed error info
-                val errorMessage = when (e.statusCode) {
-                    7 -> "Network Error. Please check your internet."
-                    10 -> "Developer Error. Ensure SHA-1 is added to Firebase Console."
-                    12500 -> "Sign-in failed. Please update Google Play Services."
-                    else -> "Error code: ${e.statusCode}. Message: ${e.message}"
+                toggleLoading(false)
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)!!
+                    firebaseAuthWithGoogle(account)
+                } catch (e: ApiException) {
+                    // Show more detailed error info
+                    val errorMessage = when (e.statusCode) {
+                        7 -> "Network Error. Please check your internet."
+                        10 -> "Developer Error. Ensure SHA-1 is added to Firebase Console."
+                        12500 -> "Sign-in failed. Please update Google Play Services."
+                        else -> "Error code: ${e.statusCode}. Message: ${e.message}"
+                    }
+                    Toast.makeText(context, "Login Failed: $errorMessage", Toast.LENGTH_LONG).show()
                 }
-                Toast.makeText(context, "Login Failed: $errorMessage", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -87,11 +89,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun signIn() {
+        toggleLoading(true)
         // Sign out first to ensure the account picker always shows up
         googleSignInClient.signOut().addOnCompleteListener {
             val signInIntent = googleSignInClient.signInIntent
             signInLauncher.launch(signInIntent)
         }
+    }
+
+    private fun toggleLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.btnGoogleLogin.isEnabled = !isLoading
+        binding.btnGoogleLogin.alpha = if (isLoading) 0.5f else 1.0f
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
@@ -115,6 +124,7 @@ class LoginFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
+                toggleLoading(false)
                 if (task.isSuccessful) {
                     navigateToHome()
                 } else {
