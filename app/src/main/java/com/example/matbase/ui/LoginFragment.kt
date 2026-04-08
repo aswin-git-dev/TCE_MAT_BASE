@@ -34,7 +34,6 @@ class LoginFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         
         // Configure Google Sign In
-        // The Web Client ID from your google-services.json
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("874173283981-h4ipqjb75qednbhstg8rg0plgsm4lr5k.apps.googleusercontent.com")
             .requestEmail()
@@ -44,21 +43,19 @@ class LoginFragment : Fragment() {
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                toggleLoading(false)
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                try {
-                    val account = task.getResult(ApiException::class.java)!!
-                    firebaseAuthWithGoogle(account)
-                } catch (e: ApiException) {
-                    // Show more detailed error info
-                    val errorMessage = when (e.statusCode) {
-                        7 -> "Network Error. Please check your internet."
-                        10 -> "Developer Error. Ensure SHA-1 is added to Firebase Console."
-                        12500 -> "Sign-in failed. Please update Google Play Services."
-                        else -> "Error code: ${e.statusCode}. Message: ${e.message}"
-                    }
-                    Toast.makeText(context, "Login Failed: $errorMessage", Toast.LENGTH_LONG).show()
+            toggleLoading(false)
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                firebaseAuthWithGoogle(account)
+            } catch (e: ApiException) {
+                val errorMessage = when (e.statusCode) {
+                    7 -> "Network Error. Please check your internet."
+                    10 -> "Developer Error. Ensure SHA-1 is added to Firebase Console."
+                    12500 -> "Sign-in failed. Please update Google Play Services."
+                    else -> "Error code: ${e.statusCode}. Message: ${e.message}"
                 }
+                Toast.makeText(context, "Login Failed: $errorMessage", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -71,7 +68,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Check if user is already signed in and valid
         val currentUser = auth.currentUser
         if (currentUser != null && isValidEmail(currentUser.email)) {
             navigateToHome()
@@ -90,7 +86,6 @@ class LoginFragment : Fragment() {
 
     private fun signIn() {
         toggleLoading(true)
-        // Sign out first to ensure the account picker always shows up
         googleSignInClient.signOut().addOnCompleteListener {
             val signInIntent = googleSignInClient.signInIntent
             signInLauncher.launch(signInIntent)
@@ -106,13 +101,11 @@ class LoginFragment : Fragment() {
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         val email = acct.email
         if (!isValidEmail(email)) {
-            // Reject unauthorized domain
             googleSignInClient.signOut()
             Toast.makeText(context, "Unauthorized domain. Use @tce.edu or @student.tce.edu.", Toast.LENGTH_LONG).show()
             return
         }
 
-        // Store user data in Shared Preferences
         val sharedPref = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
             putString("user_name", acct.displayName)
