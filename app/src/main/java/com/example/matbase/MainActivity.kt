@@ -3,24 +3,27 @@ package com.example.matbase
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.navigation.NavigationView
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import com.example.matbase.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    private val navController by lazy {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        navHostFragment.navController
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,33 +32,32 @@ class MainActivity : AppCompatActivity() {
         
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        val navHostFragment =
-            (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?)!!
-        val navController = navHostFragment.navController
-
         // Navigation for Drawer and Bottom Navigation View
+        // Added nav_login to top-level destinations so the back button doesn't appear there
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_materials, R.id.nav_calculators, R.id.nav_profile, R.id.nav_about_us
+                R.id.nav_login, R.id.nav_materials, R.id.nav_calculators, R.id.nav_profile, R.id.nav_about_us
             ),
             binding.drawerLayout
         )
         
         setupActionBarWithNavController(navController, appBarConfiguration)
         
-        // Setup Drawer
+        // Setup Navigation components for different layout configurations
+        // 1. Drawer Navigation (if present in activity_main.xml)
         binding.navView?.setupWithNavController(navController)
         
-        // Setup Bottom Navigation
+        // 2. Bottom Navigation (if present in content_main.xml)
         binding.appBarMain.contentMain.bottomNavView?.setupWithNavController(navController)
+        
+        // 3. Side Navigation (for large screens, if present in content_main.xml)
+        binding.appBarMain.contentMain.navView?.setupWithNavController(navController)
 
         // Handle back button
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val currentDest = navController.currentDestination?.id
-                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                } else if (currentDest == R.id.nav_materials || currentDest == R.id.nav_login || currentDest == R.id.nav_departments) {
+                if (currentDest == R.id.nav_materials || currentDest == R.id.nav_login) {
                     showExitDialog()
                 } else {
                     if (!navController.navigateUp()) {
@@ -83,22 +85,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return when (item.itemId) {
-            R.id.nav_about_us -> {
-                navController.navigate(R.id.nav_about_us)
-                true
-            }
-            R.id.nav_settings -> {
-                navController.navigate(R.id.nav_settings)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        // Use onNavDestinationSelected to handle menu item clicks automatically if IDs match
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
