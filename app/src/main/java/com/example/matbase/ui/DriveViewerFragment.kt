@@ -29,7 +29,7 @@ class DriveViewerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val url = arguments?.getString("url") ?: "https://drive.google.com/drive/folders/1ejx9u-ZNYDA5CME96YXY1aIqUB05Qh_6"
+        val url = arguments?.getString("url") ?: "https://drive.google.com/drive/folders/1RJJ-b3hmDToCZw_1ZRqWLZPIUWbsUfx5"
 
         binding.webViewDrive.apply {
             settings.javaScriptEnabled = true

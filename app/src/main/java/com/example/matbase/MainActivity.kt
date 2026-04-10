@@ -33,10 +33,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         // Navigation for Drawer and Bottom Navigation View
-        // Added nav_login to top-level destinations so the back button doesn't appear there
+        // Added nav_login and nav_departments to top-level destinations
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_login, R.id.nav_materials, R.id.nav_calculators, R.id.nav_profile, R.id.nav_about_us
+                R.id.nav_login, R.id.nav_departments, R.id.nav_calculators, R.id.nav_profile, R.id.nav_about_us
             ),
             binding.drawerLayout
         )
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val currentDest = navController.currentDestination?.id
-                if (currentDest == R.id.nav_materials || currentDest == R.id.nav_login) {
+                if (currentDest == R.id.nav_departments || currentDest == R.id.nav_login) {
                     showExitDialog()
                 } else {
                     if (!navController.navigateUp()) {
