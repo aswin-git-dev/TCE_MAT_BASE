@@ -21,18 +21,26 @@ class DepartmentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        val clickListener = View.OnClickListener {
+        val defaultClickListener = View.OnClickListener {
             findNavController().navigate(R.id.action_nav_departments_to_nav_semesters)
         }
 
-        binding.deptIt.setOnClickListener(clickListener)
-        binding.deptCse.setOnClickListener(clickListener)
-        binding.deptCsbs.setOnClickListener(clickListener)
-        binding.deptMech.setOnClickListener(clickListener)
-        binding.deptMect.setOnClickListener(clickListener)
-        binding.deptEee.setOnClickListener(clickListener)
-        binding.deptEce.setOnClickListener(clickListener)
-        binding.deptCivil.setOnClickListener(clickListener)
+        // IT Department - Opens Google Drive in app
+        binding.deptIt.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("url", "https://drive.google.com/drive/folders/1ejx9u-ZNYDA5CME96YXY1aIqUB05Qh_6")
+            }
+            findNavController().navigate(R.id.action_nav_departments_to_driveViewerFragment, bundle)
+        }
+
+        // Other departments continue to use the semester-wise navigation
+        binding.deptCse.setOnClickListener(defaultClickListener)
+        binding.deptCsbs.setOnClickListener(defaultClickListener)
+        binding.deptMech.setOnClickListener(defaultClickListener)
+        binding.deptMect.setOnClickListener(defaultClickListener)
+        binding.deptEee.setOnClickListener(defaultClickListener)
+        binding.deptEce.setOnClickListener(defaultClickListener)
+        binding.deptCivil.setOnClickListener(defaultClickListener)
     }
 
     override fun onDestroyView() {
