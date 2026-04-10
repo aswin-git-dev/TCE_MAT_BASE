@@ -29,6 +29,7 @@ class DriveViewerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Default to the new IT department link if no URL is passed
         val url = arguments?.getString("url") ?: "https://drive.google.com/drive/folders/1RJJ-b3hmDToCZw_1ZRqWLZPIUWbsUfx5"
 
         binding.webViewDrive.apply {

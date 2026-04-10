@@ -25,10 +25,10 @@ class DepartmentsFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_departments_to_nav_semesters)
         }
 
-        // IT Department - Opens Google Drive in app
+        // IT Department - Opens Google Drive in app with the new link
         binding.deptIt.setOnClickListener {
             val bundle = Bundle().apply {
-                putString("url", "https://drive.google.com/drive/folders/1ejx9u-ZNYDA5CME96YXY1aIqUB05Qh_6")
+                putString("url", "https://drive.google.com/drive/folders/1RJJ-b3hmDToCZw_1ZRqWLZPIUWbsUfx5")
             }
             findNavController().navigate(R.id.action_nav_departments_to_driveViewerFragment, bundle)
         }
