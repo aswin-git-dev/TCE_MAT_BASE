@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_nav_login_to_nav_departments"
-            app:destination="@id/nav_departments" />
+            app:destination="@id/nav_departments"
+            app:popUpTo="@id/nav_login"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -23,6 +25,9 @@
         <action
             android:id="@+id/action_nav_departments_to_nav_semesters"
             app:destination="@id/nav_semesters" />
+        <action
+            android:id="@+id/action_nav_departments_to_driveViewerFragment"
+            app:destination="@id/driveViewerFragment" />
     </fragment>
 
     <fragment
@@ -84,5 +89,15 @@
         android:name="com.example.matbase.ui.about.AboutUsFragment"
         android:label="About Us"
         tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/driveViewerFragment"
+        android:name="com.example.matbase.ui.DriveViewerFragment"
+        android:label="IT Department Drive"
+        tools:layout="@layout/fragment_drive_viewer">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
