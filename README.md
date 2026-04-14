@@ -1,7 +1,8 @@
 # MAT BASE - Material Management & Academic Support App
 
 <div align="center">
-    <img src="https://materialbase.in/logo.png" alt="MAT BASE Logo" width="120">
+    <img src="./TCE_MAT_BASE_LOGO.jpeg" alt="MAT BASE Logo" width="150" style="border-radius: 10px;">
+    <h2></h2>
     <h3>Comprehensive Academic Resource Platform for TCE Students</h3>
 </div>
 
@@ -405,6 +406,8 @@ The MAT BASE project is developed by a team of three 3rd-year B.Tech IT students
 | **YASHWANTH KUMAR D** | Full Stack Developer | UI/UX design, core application logic |
 
 ### Contact
+- **Email**: matbase.tce@gmail.com
+- **Website**: https://materialbase.in
 - **Institution**: Thiagarajar College of Engineering (TCE)
 
 ---
@@ -469,7 +472,8 @@ This project is developed for academic purposes at Thiagarajar College of Engine
 ## Contact & Support
 
 For issues, questions, or feature requests:
-- 
+- **Email**: matbase.tce@gmail.com
+- **Website**: https://materialbase.in
 - **GitHub Issues**: Report bugs via GitHub issues
 
 ---
